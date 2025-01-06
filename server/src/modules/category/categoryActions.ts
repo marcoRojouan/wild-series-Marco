@@ -1,17 +1,6 @@
 // Some data to make the trick
 import categoryRepository from "./categoryRepository";
 
-const categories = [
-  {
-    id: 1,
-    name: "Comédie",
-  },
-  {
-    id: 2,
-    name: "Science-Fiction",
-  },
-];
-
 // Declare the actions
 
 /* Here you code */
@@ -30,10 +19,10 @@ const browse: RequestHandler = async (req, res) => {
   }
 };
 
-const read: RequestHandler = (req, res) => {
+const read: RequestHandler = async (req, res) => {
   const parsedCategoryId = Number.parseInt(req.params.id);
-
-  const category = categories.find((c) => c.id === parsedCategoryId);
+  const categoryfromDB = await categoryRepository.readAll();
+  const category = categoryfromDB.find((c) => c.id === parsedCategoryId);
 
   if (category != null) {
     res.json(category);
