@@ -1,6 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import Home from "./pages/Home";
+import CategoryDetail from "./pages/CategoryDetail";
+import CategoryEdit from "./pages/CategoryEdit";
+import CategoryIndex from "./pages/CategoryIndex";
+import CategoryNew from "./pages/CategoryNew";
 import ProgramDetail from "./pages/ProgramDetail";
 import ProgramEdit from "./pages/ProgramEdit";
 import ProgramIndex from "./pages/ProgramIndex";
@@ -8,12 +11,9 @@ import ProgramNew from "./pages/ProgramNew";
 
 export const router = createBrowserRouter([
   {
+    path: "/",
     element: <App />,
     children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
       {
         path: "/program",
         element: <ProgramIndex />,
@@ -30,6 +30,22 @@ export const router = createBrowserRouter([
       {
         path: "/program/:id/edit",
         element: <ProgramEdit />,
+      },
+      {
+        path: "/categories",
+        element: <CategoryIndex />,
+      },
+      {
+        path: "/categories/new",
+        element: <CategoryNew />,
+      },
+      {
+        path: "/categories/:id",
+        element: <CategoryDetail />,
+      },
+      {
+        path: "/categories/:id/edit",
+        element: <CategoryEdit />,
       },
     ],
   },
