@@ -1,4 +1,15 @@
 // Declare the action
+import joi from "joi";
+
+const programSchema = joi.object({
+  title: joi.string().max(255).required(),
+  synopsis: joi.string().max(255).required(),
+  poster: joi.string().max(255).required(),
+  country: joi.string().max(255).required(),
+  year: joi.number().integer().required(),
+  category_id: joi.number().integer().required(),
+});
+
 import programRepository from "./programRepository";
 
 import type { RequestHandler } from "express";
@@ -92,4 +103,14 @@ const destroy: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browse, read, edit, add, destroy };
+const validate: RequestHandler = (req, res, next) => {
+  const { error } = programSchema.validate(req.body, { abortEarly: false });
+
+  if (error == null) {
+    next();
+  } else {
+    res.status(400).json({ validationErrors: error.details });
+  }
+};
+
+export default { browse, read, edit, add, destroy, validate };
